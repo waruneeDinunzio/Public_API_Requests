@@ -28,48 +28,66 @@ form.appendChild(submit);
 fetch('https://randomuser.me/api/?results=12&nat=us')
   .then(response => response.json())
   .then(data => {
+    console.log(data);
     displayUsers(data.results);
     eventListener(data.results);
   })
 
 
 function displayUsers(data) {
-  for (let i=0; i < data.length; i++ ) {
+  data.map( data =>{ 
   const card = document.createElement('div');
   card.className = "card";
-  gallery.appendChild(card)[i];
-  const cardImg = document.createElement('div');
-  cardImg.className = "card-img-container";
-  card.appendChild(cardImg)[i];
-  const img = document.createElement("img");
-  img.className = "card-img";
-  img.src = `${data[i].picture.large}`;
-  img.alt = "profile picture";
-  cardImg.appendChild(img)[i];
-  const cardInfo = document.createElement('div');
-  cardInfo.className = "card-info-container";
-  card.appendChild(cardInfo);
-  const h3 = document.createElement("h3");
-  h3.id = "name";
-  h3.className = "card-name cap";
-  h3.innerHTML = `${data[i].name.first}`+ " " + `${data[i].name.last}`;
-  cardInfo.appendChild(h3)[i];
-  const email = document.createElement("p");
-  email.className = "card-text";
-  email.innerHTML = `${data[i].email}`;
-  cardInfo.appendChild(email)[i];
-  const city = document.createElement("p");
-  city.className = "card-text cap";
-  city.innerHTML = `${data[i].location.city}`;
-  cardInfo.appendChild(city)[i];
-  }
+  gallery.appendChild(card);
+  card.innerHTML = `
+  <div class="card-img-container">
+          <img class="card-img" src="${data.picture.large}" alt="profile picture">
+          </div>
+            <div class="card-info-container">
+              <h3 id="name" class="card-name cap">${data.name.first}`+ " " + `${data.name.last}</h3>
+              <p class="card-text">${data.email}</p>
+              <p class="card-text cap">${data.location.city}</p>
+            </div>
+  `;
+});
 }
+/*
+function displayModal(data, i) {
+  data.map( data =>{ 
+  const modalContainer = document.createElement('div');
+  modalContainer.className = "modalContainer";
+  body.appendChild(modalContainer);
+  modalContainer.innerHTML = 
+  `
+  <div class="modal">
+      <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+      <div class="modal-info-container">
+          <img class="modal-img" src="${data[i].picture.large}" alt="profile picture">
+          <h3 id="name" class="modal-name cap">${data[i].name.first}`+ " " + `${data[i].name.last}</h3>
+          <p class="modal-text">${data[i].email}</p>
+          <p class="modal-text cap">${data[i].location.city}</p>
+          <hr>
+          <p class="modal-text">(555) 555-5555</p>
+          <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+          <p class="modal-text">Birthday: 10/21/2015</p>
+      </div>
+  </div>
+  <div class="modal-btn-container">
+      <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+      <button type="button" id="modal-next" class="modal-next btn">Next</button>
+  </div>
+  `;
+  });
+}*/
 
   function displayModal(data, i) {
     //for (let i=0; i < data.length; i++ ) {
+      const modalContainer = document.createElement('div');
+      modalContainer.className = "modal-container";
+      body.appendChild(modalContainer)[i];
       const modal = document.createElement('div');
       modal.className = "modal";
-      body.appendChild(modal)[i];
+      modalContainer.appendChild(modal)[i];
       //modal.style.display = 'none';
       const button = document.createElement('button');
       button.type = "button";
