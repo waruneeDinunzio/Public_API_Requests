@@ -65,8 +65,8 @@ function displayUsers(data) {
   }
 }
 
-  function displayModal(data) {
-    for (let i=0; i < data.length; i++ ) {
+  function displayModal(data, i) {
+    //for (let i=0; i < data.length; i++ ) {
       const modal = document.createElement('div');
       modal.className = "modal";
       body.appendChild(modal)[i];
@@ -98,17 +98,20 @@ function displayUsers(data) {
       modalCity.className = "card-text cap";
       modalCity.innerHTML = `${data[i].location.city}`;
       modalInfo.appendChild(modalCity)[i];
-    }
+    //}
+    //if (modalH3.innerHTML === 
   }
 
  
 function eventListener(data) {
   let cards = document.querySelectorAll('.card');
-
     for (let i = 0; i < cards.length; i++) {
+      console.log(data.name);
+    
         cards[i].addEventListener('click', (e) => {
-          //console.log(e.target);
-          displayModal(data);
+          console.log(e.target);
+          console.log(cards[i]);
+          displayModal(data, i);
         });
     }
 }
