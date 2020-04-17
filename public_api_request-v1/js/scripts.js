@@ -54,7 +54,6 @@ function displayUsers(data) {
 }
  
 function displayModal(data, i) {
-  //for (let i=1; i < data.length; i++) {
 let current_datetime = new Date(`${data[i].dob.date}`);
 let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
   let modalContainer = document.createElement('div');
@@ -84,13 +83,11 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
       <button type="button" id="modal-next" class="modal-next btn">Next</button>
   </div>
   `;
-  //}
+  
   const closeButton = document.querySelector('.modal-close-btn');
   const prevButton = document.querySelector('.modal-prev');
   const nextButton = document.querySelector('.modal-next');
-  console.log(i);
-  //const modalContainer = document.querySelector('.modal-container');
-  //console.log(button);
+  
   closeButton.onclick = function() {
     modalContainer.remove();
   };
@@ -101,7 +98,6 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
     }
   };
 
-  //console.log(prevButton);
   prevButton.addEventListener('click', () => {
     modalContainer.parentNode.removeChild(modalContainer);
     i = i - 1; 
