@@ -29,9 +29,10 @@ header {
 }
 
 header h1 {
-    font-size: 1.25em;
+    font-size: 2em;
     color: rgba(50, 50, 50, 0.9);
     margin-top: 35px;
+    font-family: monospace;
 }
 
 .search-input {
@@ -75,6 +76,7 @@ header h1 {
     width: 100%;
     max-width: 1200px;
     margin: auto;
+    background-color: #f18383;
 }
   
 .card {
@@ -89,7 +91,7 @@ header h1 {
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 5px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -140,9 +142,9 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: #f1e3ec;
     border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    border: 2px solid rgba(100, 100, 100, 0.3);
     transition: .4s ease-out;
 }
 
@@ -188,7 +190,7 @@ header h1 {
     max-width: 420px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
-    background: rgba(255, 255, 255, 1);
+    background: #f18383;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
 }
