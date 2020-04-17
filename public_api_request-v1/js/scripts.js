@@ -66,26 +66,7 @@ function displayUsers(data) {
   `;
 });
 }
-
-//create search function
-//const employeeDirectory = document.querySelectorAll('.card-info-container h3');
-/*const search = (inputSearch, names) => {
-  
-        const names = data;
-  //create variable to store null list of class name "preventDup" to use for prevent a duplicate meassage
-        const preventDup = document.querySelectorAll('.preventDup');
-        if (preventDup.length >0) {
-        preventDup[0].remove();
-        }
-  // compare student name in the list and user input name and store to nameMatch array
-        for (let i=0; i < employeeDirectory.length; i +=1) {
-           names[i].style.display ='none';
-           if (inputSearch.value.length !== 0 
-              && employeeDirectory[i].textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
-              employeeDirectory[i].style.display = "block"
-           }
-        }*/
-  
+ 
 function displayModal(data, i) {
 let current_datetime = new Date(`${data[i].dob.date}`);
 let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
@@ -152,6 +133,7 @@ function eventListener(data) {
         });
     }
 }
+/*
 function searchListener(inputSearch, data) {
   let cards = document.querySelectorAll('.card');
     searchButton.addEventListener('click',(e) => {
@@ -168,7 +150,30 @@ function searchListener(inputSearch, data) {
         }
       }
     });
+}*/
+
+function searchListener(inputSearch, data) {
+  let cards = document.querySelectorAll('.card');
+    userInput.addEventListener('keyup',(e) => {
+      for (let i = 0; i < cards.length; i++) {
+        console.log(userInput.value);
+        console.log(data[i].name.first.toLowerCase()||data[i].name.last.toLowerCase());
+        console.log(searchInput);
+        if (`${data[i].name.first}`.toLowerCase().includes(inputSearch.value.toLowerCase()) 
+         || `${data[i].name.last}`.toLowerCase().includes(inputSearch.value.toLowerCase())
+         || inputSearch.value === "") {
+          cards[i].style.display = "";
+        } else {
+        cards[i].style.display = "none";
+        }
+      }
+    });
+    searchButton.addEventListener('click',(e) => {
+      for (let i = 0; i < cards.length; i++) {
+      if (inputSearch.value === "") {
+        cards[i].style.display = "";
+        }
+      }
+    });
 }
-
-
 });
