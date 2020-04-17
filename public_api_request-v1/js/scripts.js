@@ -29,7 +29,6 @@ form.innerHTML= `
 fetch('https://randomuser.me/api/?results=12&nat=us')
   .then(response => response.json())
   .then(data => {
-    console.log(data.results[0]);
     displayUsers(data.results);
     eventListener(data.results);
     search(userInput, data.results);
@@ -106,28 +105,62 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
   prevButton.addEventListener('click', () => {
     modalContainer.parentNode.removeChild(modalContainer);
     i = i - 1; 
-    if (i < 0) i = 0;
+    if (i < 0) {
+      i = 0;
+      displayModal(data,i);
+      document.querySelector('.modal-prev').style.backgroundColor = 'white';
+          document.querySelector('.modal-prev').style.color = 'black';
+          document.querySelector('.modal-prev').disabled = true;
+    } else {
 
     displayModal(data,i);
+    }
   });
 
   nextButton.addEventListener('click', () => {
     modalContainer.parentNode.removeChild(modalContainer);
     i = i + 1;
-    if (i > 11) i = 11;
+    if (i > 11) {
+      i = 11;
+    displayModal(data,i);
+    document.querySelector('.modal-next').style.backgroundColor = 'white';
+    document.querySelector('.modal-next').style.color = 'black';
+    document.querySelector('.modal-next').disabled = true;
+  } else {
 
-    displayModal(data,i); 
-  });
+  displayModal(data,i);
+  }
+});
 }
+
+
 function eventListener(data) {
   let cards = document.querySelectorAll('.card');
     for (let i = 0; i < cards.length; i++) {
     
         cards[i].addEventListener('click', (e) => {
+          console.log(i);
+          if ( i === 0) {
           displayModal(data,i);
+          displayPrevButton();
+          } else if ( i === 11) {
+            displayModal(data,i);
+            displayNextButton()
+          } else {
+            displayModal(data,i);
+          }
         });
     }
-  
+function displayPrevButton(){
+  document.querySelector('.modal-prev').style.backgroundColor = 'white';
+  document.querySelector('.modal-prev').style.color = 'black';
+  document.querySelector('.modal-prev').disabled = true;
+}
+function displayNextButton() {
+  document.querySelector('.modal-next').style.backgroundColor = 'white';
+  document.querySelector('.modal-next').style.color = 'black';
+  document.querySelector('.modal-next').disabled = true;
+}
 }
 /*
 function searchListener(inputSearch, data) {
