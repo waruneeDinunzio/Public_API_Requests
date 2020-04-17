@@ -32,7 +32,7 @@ form.innerHTML= `
     `
 
     const searchButton = document.querySelector('.search-submit');
-    const searchInput = document.querySelector('input').value;
+    const searchInput = document.querySelector('input');
     const userInput = document.querySelector('.search-input');
     console.log(searchInput.value);
 // 
@@ -42,7 +42,7 @@ form.innerHTML= `
 fetch('https://randomuser.me/api/?results=12&nat=us')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    console.log(data.results[1]);
     displayUsers(data.results);
     eventListener(data.results);
     searchListener(userInput, data.results);
@@ -86,11 +86,6 @@ function displayUsers(data) {
            }
         }*/
   
-          
-      
-     
-    
-
 function displayModal(data, i) {
 let current_datetime = new Date(`${data[i].dob.date}`);
 let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
@@ -122,11 +117,11 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
   </div>
   `;
 
-  const button = document.querySelector('.modal-close-btn');
+  const closeButton = document.querySelector('.modal-close-btn');
   const prevButton = document.querySelector('.modal-prev');
   //const modalContainer = document.querySelector('.modal-container');
-  console.log(button);
-  button.onclick = function() {
+  //console.log(button);
+  closeButton.onclick = function() {
     modalContainer.style.display = "none";
     modalContainer.innerHTML = "";
   };
@@ -162,16 +157,18 @@ function searchListener(inputSearch, data) {
     searchButton.addEventListener('click',(e) => {
       for (let i = 0; i < cards.length; i++) {
         console.log(userInput.value);
-        console.log(`${data[i].name.first}`.toLowerCase());
+        console.log(data[i].name.first.toLowerCase()||data[i].name.last.toLowerCase());
         console.log(searchInput);
-        if (`${data[i].name.first}`.toLowerCase() !== inputSearch.value.toLowerCase()) {
-          
-      cards[i].style.display = "none";
-    } else {
-      cards[i].style.display = "";
-    }
-  }
-  });     
+        if (`${data[i].name.first}`.toLowerCase() === inputSearch.value.toLowerCase() 
+         || `${data[i].name.last}`.toLowerCase() === inputSearch.value.toLowerCase()
+         || inputSearch.value === "") {
+          cards[i].style.display = "";
+        } else {
+        cards[i].style.display = "none";
+        }
+      }
+    });
 }
+
 
 });
