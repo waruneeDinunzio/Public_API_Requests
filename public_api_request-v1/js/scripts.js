@@ -14,18 +14,6 @@ const form = document.createElement('form');
 form.action = "#";
 form.method = "get";
 searchContainer.appendChild(form);
-/*const searchInput = document.createElement('input');
-   searchInput.type = 'search';
-   searchInput.id = "search-input"
-   searchInput.className = "search-input"
-   searchInput.placeholder = "search...";
-   form.appendChild(searchInput);
-const searchButton = document.createElement('input');
-   searchButton.type = "sumit";
-   searchButton.value = "&#x1F50D;";
-   searchButton.id = "search-submit";
-   searchButton.className = "search-submit";
-   form.appendChild(searchButton);*/
 form.innerHTML= `
     <input type="search" id="search-input" class="search-input" placeholder="Search...">
     <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
@@ -34,7 +22,6 @@ form.innerHTML= `
     const searchButton = document.querySelector('.search-submit');
     const searchInput = document.querySelector('input');
     const userInput = document.querySelector('.search-input');
-    console.log(searchInput.value);
 // 
 //  FETCH FUNCTIONS
 // ------------------------------------------
@@ -42,10 +29,10 @@ form.innerHTML= `
 fetch('https://randomuser.me/api/?results=12&nat=us')
   .then(response => response.json())
   .then(data => {
-    console.log(data.results[1]);
+    console.log(data.results[0]);
     displayUsers(data.results);
     eventListener(data.results);
-    searchListener(userInput, data.results);
+    search(userInput, data.results);
   })
 
 
@@ -68,6 +55,7 @@ function displayUsers(data) {
 }
  
 function displayModal(data, i) {
+  //for (let i=1; i < data.length; i++) {
 let current_datetime = new Date(`${data[i].dob.date}`);
 let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
   let modalContainer = document.createElement('div');
@@ -97,41 +85,49 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
       <button type="button" id="modal-next" class="modal-next btn">Next</button>
   </div>
   `;
-
+  //}
   const closeButton = document.querySelector('.modal-close-btn');
   const prevButton = document.querySelector('.modal-prev');
+  const nextButton = document.querySelector('.modal-next');
+  console.log(i);
   //const modalContainer = document.querySelector('.modal-container');
   //console.log(button);
   closeButton.onclick = function() {
-    modalContainer.style.display = "none";
-    modalContainer.innerHTML = "";
+    modalContainer.remove();
   };
 
   window.onclick = function(event) {
     if (event.target == modalContainer) {
-      modalContainer.style.display = "none";
+      modalContainer.remove();
     }
   };
-  console.log(prevButton);
-  prevButton.addEventListener('click',(e) => {
-    console.log(modalContainer.nextSibling);
-    let md= modalContainer.nextElementSibling;
-    md.style.display = 'block';
 
+  //console.log(prevButton);
+  prevButton.addEventListener('click', () => {
+    modalContainer.parentNode.removeChild(modalContainer);
+    i = i - 1; 
+    if (i < 0) i = 0;
+
+    displayModal(data,i);
+  });
+
+  nextButton.addEventListener('click', () => {
+    modalContainer.parentNode.removeChild(modalContainer);
+    i = i + 1;
+    if (i > 11) i = 11;
+
+    displayModal(data,i); 
   });
 }
-
 function eventListener(data) {
   let cards = document.querySelectorAll('.card');
     for (let i = 0; i < cards.length; i++) {
-      console.log(data.name);
     
         cards[i].addEventListener('click', (e) => {
-          //console.log(e.target);
-          //console.log(cards[i]);
-          displayModal(data, i);
+          displayModal(data,i);
         });
     }
+  
 }
 /*
 function searchListener(inputSearch, data) {
@@ -152,13 +148,10 @@ function searchListener(inputSearch, data) {
     });
 }*/
 
-function searchListener(inputSearch, data) {
+function search(inputSearch, data) {
   let cards = document.querySelectorAll('.card');
     userInput.addEventListener('keyup',(e) => {
       for (let i = 0; i < cards.length; i++) {
-        console.log(userInput.value);
-        console.log(data[i].name.first.toLowerCase()||data[i].name.last.toLowerCase());
-        console.log(searchInput);
         if (`${data[i].name.first}`.toLowerCase().includes(inputSearch.value.toLowerCase()) 
          || `${data[i].name.last}`.toLowerCase().includes(inputSearch.value.toLowerCase())
          || inputSearch.value === "") {
