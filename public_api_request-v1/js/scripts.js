@@ -106,9 +106,7 @@ displayModal = (data, i) => {
     if (i < 0) {
       i = 0;
       displayModal(data,i);
-      document.querySelector('.modal-prev').style.backgroundColor = 'white';
-      document.querySelector('.modal-prev').style.color = 'black';
-      document.querySelector('.modal-prev').disabled = true;
+      document.querySelector('.modal-prev').remove();
     } else {
       displayModal(data,i);
     }
@@ -120,9 +118,7 @@ displayModal = (data, i) => {
     if (i > 11) {
       i = 11;
       displayModal(data,i);
-      document.querySelector('.modal-next').style.backgroundColor = 'white';
-      document.querySelector('.modal-next').style.color = 'black';
-      document.querySelector('.modal-next').disabled = true;
+      document.querySelector('.modal-next').remove();
     } else {
       displayModal(data,i);
     }
@@ -137,25 +133,15 @@ displayModal = (data, i) => {
           cards[i].addEventListener('click', (e) => {
             if ( i === 0) {
             displayModal(data,i);
-            displayPrevButton();
+            document.querySelector('.modal-prev').remove();
             } else if ( i === 11) {
               displayModal(data,i);
-              displayNextButton()
+              document.querySelector('.modal-next').remove();
             } else {
               displayModal(data,i);
             }
           });
       } 
-    displayPrevButton = () => {
-      document.querySelector('.modal-prev').style.backgroundColor = 'white';
-      document.querySelector('.modal-prev').style.color = 'black';
-      document.querySelector('.modal-prev').disabled = true;
-    }
-    displayNextButton= () => {
-      document.querySelector('.modal-next').style.backgroundColor = 'white';
-      document.querySelector('.modal-next').style.color = 'black';
-      document.querySelector('.modal-next').disabled = true;
-    }
   }
 
   search = (inputSearch, data) => {
