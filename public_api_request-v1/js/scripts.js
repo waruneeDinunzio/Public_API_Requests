@@ -143,26 +143,84 @@ displayModal = (data, i) => {
           });
       } 
   }
-
+/*
   search = (inputSearch, data) => {
   let cards = document.querySelectorAll('.card');
     userInput.addEventListener('keyup',(e) => {
+      
       for (let i = 0; i < cards.length; i++) {
         if (`${data[i].name.first}`.toLowerCase().includes(inputSearch.value.toLowerCase()) 
          || `${data[i].name.last}`.toLowerCase().includes(inputSearch.value.toLowerCase())
          || inputSearch.value === "") {
+          
           cards[i].style.display = "";
         } else {
         cards[i].style.display = "none";
+        //displayNotFound();
         }
       }
     });
+    
+
     searchButton.addEventListener('click',(e) => {
       for (let i = 0; i < cards.length; i++) {
-      if (inputSearch.value === "") {
+        if (inputSearch.value === "") {
         cards[i].style.display = "";
+        
         }
       }
     });
   }
+  */
+  search = (inputSearch, data) => {
+    let cards = document.querySelectorAll('.card');
+      userInput.addEventListener('keyup',(e) => {
+        let card = [];
+        for (let i = 0; i < cards.length; i++) {
+          const notFound = document.querySelectorAll('.notFound');
+          if (notFound.length >0) {
+            notFound[0].remove();
+            }
+          if (`${data[i].name.first}`.toLowerCase().includes(inputSearch.value.toLowerCase()) 
+           || `${data[i].name.last}`.toLowerCase().includes(inputSearch.value.toLowerCase())
+           || inputSearch.value === "") {
+            
+            card.push(cards[i]);
+            
+            cards[i].style.display = "";
+           } else {
+            cards[i].style.display = "none"; 
+           }
+           
+          } 
+          if (card.length === 0) {
+            
+            displayNotFound(); 
+        }
+      });
+        
+      searchButton.addEventListener('click',(e) => {
+        for (let i = 0; i < cards.length; i++) {
+          if (inputSearch.value === "") {
+          cards[i].style.display = "";
+          
+          }
+        }
+      });
+    }
+  displayNotFound = () => {
+    let cards = document.querySelectorAll('.card');
+  for (let i=0; i< cards.length; i ++) {
+    const notFound = document.querySelectorAll('.notFound');
+        if (notFound.length >0) {
+          notFound[0].remove();
+          }
+        const message = document.createElement('span');
+        message.className = "notFound";
+        message.innerHTML = 'oop';
+        document.querySelector('body').appendChild(message);
+      
+    }
+  }
+  
 });
